@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Anaa</title>
+    
+    <!-- Mengambil Font Premium dari Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset & Smooth Scrolling */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        /* Custom Scrollbar Tema Romantis */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #ffe6ea; }
+        ::-webkit-scrollbar-thumb { background: #d81b60; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b0124b; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ffe6ea, #ffffff, #fce4ec, #f8bbd0);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #5D4037;
+            overflow-x: hidden; /* Mencegah geser kanan-kiri */
+            /* Hapus overflow: hidden di Y agar BISA DI-SCROLL */
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Wrapper untuk mengatur posisi tengah tapi tetap bisa scroll */
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px; /* Jarak aman atas bawah untuk scroll */
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Layar Pembuka (Intro) */
+        #intro {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #intro h2 {
+            font-family: 'Great Vibes', cursive;
+            color: #d81b60;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            animation: pulseIntro 2.5s infinite;
+        }
+
+        .btn-open {
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #d81b60, #f06292);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(216, 27, 96, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        .btn-open:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.6);
+        }
+
+        /* Konten Utama - Glassmorphism Premium */
+        .container {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(216, 27, 96, 0.1);
+            opacity: 0;
+            transform: scale(0.9) translateY(30px);
+            transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .container.show {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Bingkai Foto Mengambang & Glowing */
+        .photo-wrapper {
+            margin: 0 auto 30px auto;
+            width: 100%;
+            max-width: 350px; /* Ukuran pas untuk wajah/landscape */
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(255, 182, 193, 0.8); /* Efek cahaya pink */
+            position: relative;
+            border: 5px solid white;
+            animation: floatingPhoto 6s ease-in-out infinite;
+        }
+
+        @keyframes floatingPhoto {
+            0% { transform: translateY(0px); box-shadow: 0 0 25px rgba(255, 182, 193, 0.6); }
+            50% { transform: translateY(-10px); box-shadow: 0 0 35px rgba(216, 27, 96, 0.4); }
+            100% { transform: translateY(0px); box-shadow: 0 0 25px rgba(255, 182, 193, 0.6); }
+        }
+
+        .photo-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .photo-wrapper:hover img { transform: scale(1.05); }
+
+        /* Tipografi */
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            color: #d81b60;
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .message-box {
+            min-height: 100px;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        p.honest-message {
+            font-family: 'Lora', serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #5D4037;
+            font-style: italic;
+        }
+
+        /* Kursor Mesin Tik */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2rem;
+            background-color: #d81b60;
+            animation: blink 0.75s step-end infinite;
+            vertical-align: middle;
+            margin-left: 3px;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Tombol Rahasia */
+        .btn-secret {
+            background: transparent;
+            color: #795548; 
+            border: 2px solid #795548;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        .btn-secret.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            animation: pulseBtn 2s infinite 3s; /* Berdenyut pelan minta diklik */
+        }
+
+        .btn-secret:hover {
+            background: #795548;
+            color: white;
+            box-shadow: 0 8px 20px rgba(121, 85, 72, 0.4);
+            animation: none;
+        }
+
+        @keyframes pulseBtn {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Teks Rahasia - Responsif & Smooth */
+        .secret-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: #5D4037;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 25px;
+            border-radius: 20px;
+            border-left: 5px solid #795548;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            margin-top: 0;
+            transform: scale(0.95) translateY(-10px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+            line-height: 1.7;
+        }
+
+        .secret-text.reveal {
+            max-height: 500px; /* Cukup panjang untuk nampung teks */
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            margin-top: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        /* Animasi Hati Beterbangan - Posisi Fixed agar tidak terpotong saat scroll */
+        .particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            bottom: -50px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff8da1"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
+            background-size: contain;
+            animation: floatParticle 8s infinite linear;
+            opacity: 0.5;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.6; }
+            100% { transform: translateY(-120vh) rotate(360deg) scale(1.5); opacity: 0; }
+        }
+
+        @keyframes pulseIntro {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        /* --- PENGATURAN RESPONSIVE UNTUK HP (MOBILE) --- */
+        @media (max-width: 600px) {
+            .page-wrapper { padding: 30px 15px; }
+            .container { padding: 30px 20px; border-radius: 25px; }
+            h1 { font-size: 3rem; margin-bottom: 15px; }
+            #intro h2 { font-size: 2.8rem; }
+            p.honest-message { font-size: 1.05rem; }
+            .photo-wrapper { max-width: 100%; margin-bottom: 20px; }
+            .secret-text { padding: 20px; font-size: 0.95rem; }
+            .message-box { min-height: 120px; } /* Space ekstra untuk teks di layar kecil */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Musik Latar (Otomatis Mengulang) -->
+    <audio id="bg-music" loop>
+        <source src="lagu.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Partikel Hati -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Layar Pembuka -->
+    <div id="intro">
+        <h2>Dibuka yaa cantikk...</h2>
+        <button class="btn-open" onclick="startExperience()">Buka Pesannya 💌</button>
+    </div>
+
+    <!-- Wrapper untuk Scroll -->
+    <div class="page-wrapper">
+        <!-- Konten Utama -->
+        <div class="container" id="main-content">
+            <!-- Foto Anaa -->
+            <div class="photo-wrapper">
+                <img src="foto.jpeg" alt="Anaa Cantik">
+            </div>
+
+            <!-- Sapaan -->
+            <h1>Hai, Anaa Cantik</h1>
+
+            <!-- Area Efek Mesin Tik -->
+            <div class="message-box">
+                <p class="honest-message">
+                    <span id="typed-text"></span><span class="cursor" id="cursor"></span>
+                </p>
+            </div>
+
+            <!-- Tombol Pesan Rahasia -->
+            <button class="btn-secret" id="btn-secret" onclick="revealSecret()">Pesan Rahasia 💌</button>
+
+            <!-- Pesan Rahasia -->
+            <div class="secret-text" id="secret">
+                <strong>Dari aku, buat anak cantik:</strong><br><br>
+                "Semoga kamu selalu bahagia ya naa. Kalau lagi capek atau "bad mood", ingat aja ada aku di sini yang selalu support kamu... terus jangan lupa makan coklat yaa biar manisnya nambah hehehe 🍫. Aku sayang banget sama kamu naa. Bukan cuman sesaat, tapi selamanya 🤍."
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- PENGATURAN MUSIK AUTO-LOOP ---
+        let music = document.getElementById('bg-music');
+        music.addEventListener('ended', function() {
+            this.currentTime = 0; 
+            this.play();          
+        }, false);
+
+        // --- TEKS UNTUK EFEK MESIN TIK ---
+        const textToType = "Haii naa, sebelumnya aku mau bilang terimakasih sama kamu udah mau kenal sama aku. Aku masih ga kebayang setelah berbulan-bulan kemarin aku nunggu kamu, eh sekarang udah kenal aja eheh. Ntah lah aku gatau harus ngomong apa, cuman aku minta kita jalanin pelan-pelan ya na? Ga harus dalam waktu dekat, kapanpun itu meskipun lama asal hasilnya tetap kamu, aku bakal selalu nunggu moment itu.";
+        let i = 0;
+        const typingSpeed = 50; // Sedikit dicepatkan agar nyaman dibaca
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                document.getElementById("typed-text").innerHTML += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, typingSpeed);
+            } else {
+                // Hapus kursor berkedip setelah selesai
+                document.getElementById("cursor").style.display = "none";
+                // Munculkan tombol rahasia setelah teks selesai
+                setTimeout(() => {
+                    document.getElementById("btn-secret").classList.add("show");
+                }, 500);
+            }
+        }
+
+        // --- FUNGSI MEMULAI PENGALAMAN ---
+        function startExperience() {
+            // Play Musik
+            music.play();
+
+            // Hilangkan Intro
+            const intro = document.getElementById('intro');
+            intro.style.opacity = '0';
+            setTimeout(() => {
+                intro.style.visibility = 'hidden';
+            }, 1500);
+
+            // Munculkan Konten Utama & Mulai Mengetik
+            setTimeout(() => {
+                document.getElementById('main-content').classList.add('show');
+                setTimeout(typeWriter, 1000); 
+            }, 800);
+        }
+
+        // --- FUNGSI PESAN RAHASIA & AUTO-SCROLL ---
+        function revealSecret() {
+            const secret = document.getElementById('secret');
+            const btn = document.getElementById('btn-secret');
+            
+            secret.classList.toggle('reveal');
+            
+            if(secret.classList.contains('reveal')) {
+                btn.innerHTML = "Tutup Pesan 🙈";
+                btn.style.background = "#795548";
+                btn.style.color = "white";
+                
+                // AUTO SCROLL KE BAWAH SETELAH PESAN TERBUKA (Jeda sedikit agar animasi mulus)
+                setTimeout(() => {
+                    secret.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }, 300);
+            } else {
+                btn.innerHTML = "Pesan Rahasia 💌";
+                btn.style.background = "transparent";
+                btn.style.color = "#795548";
+            }
+        }
+
+        // --- PARTIKEL HATI BACKGROUND ---
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 25; i++) { // Jumlah hati ditambah
+                let particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                let size = Math.random() * 20 + 10; 
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDuration = (Math.random() * 5 + 8) + 's'; 
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
+</body>
+</html>
